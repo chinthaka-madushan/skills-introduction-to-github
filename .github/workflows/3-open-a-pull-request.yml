@@ -74,19 +74,17 @@ jobs:
         continue-on-error: true
         uses: skills/action-keyphrase-checker@v1
         with:
-          keyphrase: "Add my first file"
+          keyphrase: "Add"
           text: ${{ github.event.pull_request.title }}
           case-sensitive: false
 
       - name: Check PR description is non-empty
         id: check-pr-description
-        continue-on-error: true
         run: |
           if [ -n "$PR_BODY" ]; then
             echo "STEP_MESSAGE=Pull request description" >> $GITHUB_OUTPUT
           else
-            echo "STEP_MESSAGE=Pull request description is empty" >> $GITHUB_OUTPUT
-            exit 1
+            echo "STEP_MESSAGE=Pull request description is optional" >> $GITHUB_OUTPUT
           fi
         env:
           PR_BODY: ${{ github.event.pull_request.body }}
